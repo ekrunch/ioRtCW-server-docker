@@ -4,6 +4,10 @@
 
 This is a container build / compose set up for the Return to Castle Wolfenstein dedicated server. The build uses the "ioRtCW" server from [ioRtCW](https://github.com/iortcw/iortcw) project.
 
+The goal is to allow a user to provide the necessary PK3 files that cannot be distributed, optionally a server config, an run a RtCW compatible game server. A friend and I started this and I decided to publish the code so others could enjoy.
+
+### Instructions
+
 ### Available environment variables
 
 | Name | Description | Default |
