@@ -26,9 +26,9 @@ COPY --chmod=0755 scripts/build-game-data.sh scripts/entrypoint.sh scripts/examp
 COPY --chmod=0644 scripts/example_server.cfg /
 
 # Metadata for container builds
-LABEL org.opencontainers.image.description Self contained RtCW server using ioRtCW
-LABEL org.opencontainers.image.source https://github.com/ekrunch/ioRtCW-server-docker
-LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.description="Self contained RtCW server using ioRtCW"
+LABEL org.opencontainers.image.source="https://github.com/ekrunch/ioRtCW-server-docker"
+LABEL org.opencontainers.image.licenses="MIT"
 
 # The entrypoint builds the data files package, if necessary, and starts the server
 ENTRYPOINT ["/entrypoint.sh"]
