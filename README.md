@@ -77,7 +77,7 @@ Go into RtCW, switch to Multiplayer mode, drop down the console (`) and type "co
 
 | Volume | Description |
 | --- | --- |
-| /var/cache/rtcw-server/gamefiles | Path to the official RtCW data files. They should be in a subfolder called "main" under this volume. See above for the list of files that should be present. |
+| /var/cache/rtcw-server/gamefiles | Path to the official RtCW data files. They should be in a subfolder called "main" under this volume. See above the [Installation](#installation) section for the list of files that should be present. |
 | /mnt/rtcw/home:/var/cache/rtcw-server/home | This will become the home directory for the iortcw user. The server.cfg and additional configuration files get placed here. A subdirectory will automatically be created on first launch called ``server.iortcw/main``. Server configuration goes in that directory. |
 
 ## Example compose.yaml
