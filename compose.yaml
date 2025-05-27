@@ -1,8 +1,5 @@
 services:
   rtcw-server:
-    build:
-      context: build
-      dockerfile: Containerfile
     image: ekrunch/uxwh-custom-rtcw-server:latest
     container_name: rtcw-server
     restart: unless-stopped
