@@ -55,6 +55,13 @@ Edit the [compose.yaml](compose.yaml) and adjust paths, ports, network names, et
 
 That's it. You can start the container now (docker compose up -d) and it will automatically package up the pk3 files and put them in the right place. Note that it only needs to package the datafiles once and will not redo them unless it needs to. You'll notice the creation of a subdirectory called "deb" with an rtcw-en-data*.deb in it as well as a subdirectory called "download" with the ioRtCW archive in it. If you want to force a rebuild, remove the "deb" and "download" directories and restart the container.
 
+### Configuring the server
+
+Edit the server.cfg in the "\<home volume\>/server.iortcw/main" subdirectory. I highly recommend setting a password if you're opening the server to the Internet. There are lots of docs out there on how to configure th server and options available. The provided sample config 
+
+### Connecting to the server
+
+Go into RtCW, switch to Multiplayer mode, drop down the console (`) and type "connect \<hostname\>:\<port\>".
 
 ### Available environment variables
 
