@@ -20,10 +20,9 @@ This is a container build / compose set up for the Return to Castle Wolfenstein 
 ``/mnt/rtcw/home:/var/cache/rtcw-server/home``
 **This will become the home directory for the iortcw user. The server.cfg and additional configuration files get placed here.**
 
-
 - /var/cache/rtcw-server/gamefiles
 - /var/cache/rtcw-server/home
 
 *** Example compose.yaml
 
-There is a compose.yaml in this repo
+There is an example [compose.yaml](compose.yaml) available in this repo.
