@@ -1,0 +1,34 @@
+services:
+  rtcw-server:
+    build:
+      context: build
+      dockerfile: Containerfile
+    image: git.i.uxwh.io/whadmin/uxwh-custom-rtcw-server
+#    pull_policy: always
+    container_name: rtcw-server
+    restart: unless-stopped
+    environment:
+      - TZ=America/Chicago
+      # User ID / Group ID to run the server as.
+      # Note that files will be chown'd by the startup scripts.
+      - PUID=2796
+      - PGID=2796
+      # This is far too high for a server, but ensures you won't run out of memory in a big map.
+      - SV_HUNKMEGS=128
+      - SV_PUNKBUSTER=0
+      # Make sure to adjust the "ports" section to match the port set here.
+      - SV_NETPORT=27960
+      # Do not include a path here.
+      - SV_SERVERCONFIGFILE=server.cfg
+    ports:
+      - "27960:27960/udp"
+      - "27960:27960/tcp"
+    volumes:
+      - /mnt/zpool-spinning1/appdata/rtcw/gamefiles:/var/cache/rtcw-server/gamefiles
+      - /mnt/zpool-spinning1/appdata/rtcw/home:/var/cache/rtcw-server/home
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    external: true
