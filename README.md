@@ -1,28 +1,28 @@
 # ioRtCW-server-docker
 
+# **WARNING : Documentation is still a WIP**
+
 This is a container build / compose set up for the Return to Castle Wolfenstein dedicated server. The build uses the "ioRtCW" server from [ioRtCW](https://github.com/iortcw/iortcw) project.
 
 ### Available environment variables
 
-- TZ
-- PUID
-- PGID
-- SV_HUNKMEGS
-- SV_PUNKBUSTER
-- SV_NETPORT
-- SV_SERVERCONFIGFILE
+| Name | Description | Default |
+| --- | --- | --- |
+| TZ | Timezone | None |
+| PUID | User ID | 27960 |
+| PGID | Group ID | 27960 |
+| SV_HUNKMEGS | Server Hunk in Megabytes - This can definitely be reduced. It's defaulted high to accomodate maps/mods that need it. | 128 |
+| SV_PUNKBUSTER | Punkbuster Anti-Cheat | 0 (disabled) |
+| SV_NETPORT | Network port (TCP and UDP) | 27960 |
+| SV_SERVERCONFIGFILE | Server Configuration file, located in the home volume under ``server.iortcw/main`` | server.cfg |
 
-*** Required volumes
+### Required volumes
 
-``/var/cache/rtcw-server/gamefiles``
-**Path to the official RtCW data files. They should be in a subfolder called "main". All that is needed is the *.pk3 files from the official RtCW distribution**
+| Volume | Description |
+| --- | --- |
+| /var/cache/rtcw-server/gamefiles | Path to the official RtCW data files. They should be in a subfolder called "main". All that is needed is the *.pk3 files from the official RtCW distribution |
+| /mnt/rtcw/home:/var/cache/rtcw-server/home | This will become the home directory for the iortcw user. The server.cfg and additional configuration files get placed here. A subdirectory will automatically be created on first launch called ``server.iortcw/main``. Server configuration goes in that directory. |
 
-``/mnt/rtcw/home:/var/cache/rtcw-server/home``
-**This will become the home directory for the iortcw user. The server.cfg and additional configuration files get placed here.**
-
-- /var/cache/rtcw-server/gamefiles
-- /var/cache/rtcw-server/home
-
-*** Example compose.yaml
+### Example compose.yaml
 
 There is an example [compose.yaml](compose.yaml) available in this repo.
