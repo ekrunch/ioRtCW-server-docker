@@ -3,8 +3,7 @@ services:
     build:
       context: build
       dockerfile: Containerfile
-    image: git.i.uxwh.io/whadmin/uxwh-custom-rtcw-server
-#    pull_policy: always
+    image: ekrunch/uxwh-custom-rtcw-server:latest
     container_name: rtcw-server
     restart: unless-stopped
     environment:
@@ -24,8 +23,10 @@ services:
       - "27960:27960/udp"
       - "27960:27960/tcp"
     volumes:
-      - /mnt/zpool-spinning1/appdata/rtcw/gamefiles:/var/cache/rtcw-server/gamefiles
-      - /mnt/zpool-spinning1/appdata/rtcw/home:/var/cache/rtcw-server/home
+      # Path to the official RtCW data files. They should be in a subfolder called "main". All that is needed is the *.pk3 files from the official RtCW distribution
+      - /mnt/rtcw/gamefiles:/var/cache/rtcw-server/gamefiles
+      # This will become the home directory for the iortcw user. The server.cfg and additional configuration files get placed here.
+      - /mnt/rtcw/home:/var/cache/rtcw-server/home
     networks:
       - frontend
 
