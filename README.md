@@ -1,4 +1,4 @@
-# ioRtCW-server-docker document. (WIP)
+# ioRtCW-server-docker documentation. (WIP)
 
 This is a container build / Docker Compose set up for the Return to Castle Wolfenstein dedicated server. The build uses the "ioRtCW" server from [ioRtCW](https://github.com/iortcw/iortcw) project.
 
