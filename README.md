@@ -2,7 +2,7 @@
 
 # **WARNING : Documentation is still a WIP**
 
-This is a container build / compose set up for the Return to Castle Wolfenstein dedicated server. The build uses the "ioRtCW" server from [ioRtCW](https://github.com/iortcw/iortcw) project.
+This is a container build / Docker Compose set up for the Return to Castle Wolfenstein dedicated server. The build uses the "ioRtCW" server from [ioRtCW](https://github.com/iortcw/iortcw) project.
 
 The goal is to allow a user to provide the necessary PK3 files that cannot be distributed, optionally a server config, an run a RtCW compatible game server. A friend and I started this and I decided to publish the code so others could enjoy.
 
@@ -21,17 +21,39 @@ mkdir -p /mnt/rtcw/gamefiles
 mkdir -p /mnt/rtcw/gamefiles/main
 
 # Create directory to hold server config files / maps / etc.
+# On first startup, a folder named ``server.iortcw/main`` will be created and an example server.cfg will be placed in it.
 mkdir -p /mnt/rtcw/home
 ```
 
-Copy the *.pk3 files. If you're using the Steam version, they'll be located in the Steam library folder under ``steamapps\common\Return to Castle Wolfenstein\main``. The target folder is whatever your gamefiles directory is with the "main" directory intact. Here's an example.
+Copy the *.pk3 files and the "scripts" subdirectory. If you're using the Steam version, they'll be located in the Steam library folder under ``steamapps\common\Return to Castle Wolfenstein\main``. The target folder is whatever your gamefiles directory is with the "main" directory intact. Here's an example.
 
+The destination folder should have the following files
 ```
-# From the RtCW directory
-cp main/*.pk3 /mnt/rtcw/gamefiles/main
+mp_bin.pk3
+mp_pak0.pk3
+mp_pak1.pk3
+mp_pak2.pk3
+mp_pak3.pk3
+mp_pak4.pk3
+mp_pak5.pk3
+mp_pakmaps0.pk3
+mp_pakmaps1.pk3
+mp_pakmaps2.pk3
+mp_pakmaps3.pk3
+mp_pakmaps4.pk3
+mp_pakmaps5.pk3
+mp_pakmaps6.pk3
+pak0.pk3
+scripts/translation.cfg
+sp_pak1.pk3
+sp_pak2.pk3
+sp_pak3.pk3
+sp_pak4.pk3
 ```
 
-That's it. You can start the container now and it will automatically package up the pk3 files and put them in the right place. Note that it only needs to package the datafiles once and will not redo them unless it needs to. (You'll notice the creation of a subdirectory called "deb" with an rtcw-en-data*.deb in it as well as a subdirectory called "download" with the ioRtCW archive in it). If you want to force a rebuild, remove the "deb" and "download" directories and restart the container.
+Edit the [compose.yaml](compose.yaml) and adjust paths, ports, network names, etc to your liking.
+
+That's it. You can start the container now (docker compose up -d) and it will automatically package up the pk3 files and put them in the right place. Note that it only needs to package the datafiles once and will not redo them unless it needs to. You'll notice the creation of a subdirectory called "deb" with an rtcw-en-data*.deb in it as well as a subdirectory called "download" with the ioRtCW archive in it. If you want to force a rebuild, remove the "deb" and "download" directories and restart the container.
 
 
 ### Available environment variables
@@ -56,3 +78,7 @@ That's it. You can start the container now and it will automatically package up 
 ### Example compose.yaml
 
 There is an example [compose.yaml](compose.yaml) available in this repo.
+
+### Podman Support
+
+Never tried it. Couldn't tell you.
