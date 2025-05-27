@@ -6,7 +6,33 @@ This is a container build / compose set up for the Return to Castle Wolfenstein 
 
 The goal is to allow a user to provide the necessary PK3 files that cannot be distributed, optionally a server config, an run a RtCW compatible game server. A friend and I started this and I decided to publish the code so others could enjoy.
 
-### Instructions
+### Prerequisites
+
+You will need the original RtCW data files. I use the Steam version as it's already patched to the latest official version (1.41). If you're not using the Steam version, make sure the data files are patched up to 1.41! The official patches can be found in a compiled archive at the [ioRtCW Project](https://github.com/iortcw/iortcw). Look in the releases and you should see the "patch" zip files. Check out their README as well for more information.
+
+### Installation
+
+Create a directory on the server for the data files and another for the home directory.
+
+```
+# Create directory to hold RtCW gamefiles
+mkdir -p /mnt/rtcw/gamefiles
+# This will also need a "main" subdirectory under it
+mkdir -p /mnt/rtcw/gamefiles/main
+
+# Create directory to hold server config files / maps / etc.
+mkdir -p /mnt/rtcw/home
+```
+
+Copy the *.pk3 files. If you're using the Steam version, they'll be located in the Steam library folder under ``steamapps\common\Return to Castle Wolfenstein\main``. The target folder is whatever your gamefiles directory is with the "main" directory intact. Here's an example.
+
+```
+# From the RtCW directory
+cp main/*.pk3 /mnt/rtcw/gamefiles/main
+```
+
+That's it. You can start the container now and it will automatically package up the pk3 files and put them in the right place. Note that it only needs to package the datafiles once and will not redo them unless it needs to. (You'll notice the creation of a subdirectory called "deb" with an rtcw-en-data*.deb in it as well as a subdirectory called "download" with the ioRtCW archive in it). If you want to force a rebuild, remove the "deb" and "download" directories and restart the container.
+
 
 ### Available environment variables
 
