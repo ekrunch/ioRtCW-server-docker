@@ -1,20 +1,24 @@
 services:
   rtcw-server:
-    image: ekrunch/uxwh-custom-rtcw-server:latest
+    image: ghcr.io/ekrunch/iortcw-server-docker:main
     container_name: rtcw-server
     restart: unless-stopped
     environment:
       - TZ=America/Chicago
-      # User ID / Group ID to run the server as.
+      # User ID / Group ID to run the server as. These can be whatever you'd like.
       # Note that files will be chown'd by the startup scripts.
-      - PUID=2796
-      - PGID=2796
-      # This is far too high for a server, but ensures you won't run out of memory in a big map.
+      - PUID=27960
+      - PGID=27960
+      # This is too high for a normal server, but ensures you won't run out of memory in a big map.
       - SV_HUNKMEGS=128
+      # Disable Anti-Cheat - Usually only used for a private server with friends.
+      # Friends that don't cheat, that is...
       - SV_PUNKBUSTER=0
-      # Make sure to adjust the "ports" section to match the port set here.
+      # Server port - Make sure to adjust the "ports" section to match the port set here.
+      # If you're using firewalls, make sure to open this port for both TCP and UDP, as the server
+      # uses both protocols.
       - SV_NETPORT=27960
-      # Do not include a path here.
+      # Do not include a path here. Server configurations should be located in "<home volume>/server.iortcw/main"
       - SV_SERVERCONFIGFILE=server.cfg
     ports:
       - "27960:27960/udp"
