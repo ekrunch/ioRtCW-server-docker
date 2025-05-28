@@ -21,7 +21,6 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -29,7 +28,6 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -82,7 +80,6 @@ jobs:
 # If this were a real software project, sure. But this is a game server for a 20+ year old game. :)
 #            type=semver,pattern=v{{major}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
 #            type=semver,pattern=v{{major}}.{{minor}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
-
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action

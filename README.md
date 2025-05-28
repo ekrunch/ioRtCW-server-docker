@@ -1,8 +1,8 @@
-# ioRtCW-server-docker documentation. (WIP)
+# ioRtCW-server-docker documentation.
 
-This is a container build / Docker Compose set up for the Return to Castle Wolfenstein dedicated server. The build uses the "ioRtCW" server from [ioRtCW](https://github.com/iortcw/iortcw) project.
+This is a container build / Docker Compose set up for the Return to Castle Wolfenstein dedicated server. The goal is to allow a user easily run an RtCW compatible game server. All that's needed is to provide the necessary RtCW data files that cannot be distributed and optionally a server config. A friend and I started this and I decided to publish the code so others could enjoy.
 
-The goal is to allow a user to provide the necessary PK3 files that cannot be distributed, optionally a server config, an run a RtCW compatible game server. A friend and I started this and I decided to publish the code so others could enjoy.
+The container uses the Debian build of the "ioRtCW" server from [ioRtCW](https://github.com/iortcw/iortcw) project. More information on the base container image and packages used below in the [Supported Hardware Platforms](#supported-hardware-platforms) section.
 
 ## Prerequisites
 
@@ -12,20 +12,20 @@ You will need the original RtCW data files. I use the Steam version as it's alre
 
 Create a directory on the server for the data files and another for the home directory.
 
-```
+```bash
 # Create directory to hold RtCW gamefiles
 mkdir -p /mnt/rtcw/gamefiles
 # This will also need a "main" subdirectory under it
 mkdir -p /mnt/rtcw/gamefiles/main
 
 # Create directory to hold server config files / maps / etc.
-# On first startup, a folder named ``server.iortcw/main`` will be created and an example server.cfg will be placed in it.
+# On first startup, a subdirectory named ``server.iortcw/main`` will be created under this mount and an example server.cfg will be placed in it.
 mkdir -p /mnt/rtcw/home
 ```
 
-Copy the *.pk3 files and the "scripts" subdirectory. If you're using the Steam version, they'll be located in the Steam library folder under ``steamapps\common\Return to Castle Wolfenstein\main``. The target folder is whatever your gamefiles directory is with the "main" directory intact. Here's an example.
+Copy the RtCW data files (*.pk3 files and the "scripts" subdirectory) to the "gamefiles" mount location for the container. If you're using the Steam version of RtCW, the needed files will be located in the Steam library folder under ``steamapps\common\Return to Castle Wolfenstein\main``. The target folder is whatever your gamefiles directory is with the "main" directory intact. Here's an example.
 
-The destination folder should have the following files
+The "main" directory underneath gamefiles should have the following files
 ```
 mp_bin.pk3
 mp_pak0.pk3
@@ -55,11 +55,22 @@ That's it. You can start the container now (docker compose up -d) and it will au
 
 ## Configuring the server
 
-Edit the server.cfg in the "\<home volume\>/server.iortcw/main" subdirectory. I highly recommend setting a password if you're opening the server to the Internet. There are lots of docs out there on how to configure th server and options available. The provided sample config 
+Edit the server.cfg in the "\<home volume\>/server.iortcw/main" subdirectory. I highly recommend setting a password if you're opening the server to the Internet.
 
 ## Connecting to the server
 
-Go into RtCW, switch to Multiplayer mode, drop down the console (`) and type "connect \<hostname\>:\<port\>".
+Go into RtCW, switch to Multiplayer mode, drop down the console (`) and type "connect \<hostname\>:\<port\>". If you're using a server password, you'll need to use the "password" command before connecting.
+
+## Password protecting the server
+
+To create a password protected server, do the following -
+
+In the server.cfg, do the following. 
+- set sv_maxclients to the maximum number of clients you would like to have.
+- set sv_privateclients to the same as sv_maxclients
+- set sv_privatePassword to something
+- restart the server
+On the client, use the \password command in the console before they use \connect. If client are seeing "Server is Full", it's usually because they didn't enter the password correctly.
 
 ## Available environment variables
 
@@ -83,6 +94,16 @@ Go into RtCW, switch to Multiplayer mode, drop down the console (`) and type "co
 ## Example compose.yaml
 
 There is an example [compose.yaml](compose.yaml) available in this repo.
+
+## Supported Hardware Platforms
+
+The container is currently being built for amd64 and arm64. Those are the platforms that have been tested. Other platforms might work as well but there are no plans to add any more builds to this repository. The container is based on the official Debian Trixie slim container images and uses the rtcw-server, game-data-packager, and innoextract packages (and their dependencies). So if these packages will work on your platform of choice under Debian Trixie, you'll most likely be able to build this container.
+
+More information on the packages used.
+
+[rtcw-server](https://packages.debian.org/trixie/rtcw-server)
+[game-data-packager](https://packages.debian.org/trixie/game-data-packager)
+[innoextract](https://packages.debian.org/trixie/innoextract)
 
 ## Podman Support
 
