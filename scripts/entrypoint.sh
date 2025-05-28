@@ -16,6 +16,7 @@ useradd -u ${PUID} -g iortcw -d /var/cache/rtcw-server/home -s /bin/bash iortcw
 if [ ! -f /var/cache/rtcw-server/home/server.iortcw/main/server.cfg ]; then
   echo No server config found, copying example config
   cp /example_server.cfg /var/cache/rtcw-server/home/server.iortcw/main/${SV_SERVERCONFIGFILE}
+  chown -Rv ${PUID}:${PGID} /var/cache/rtcw-server/home/server.iortcw/main/${SV_SERVERCONFIGFILE}
 fi
 
 RUNCMD="/usr/lib/rtcw/iowolfded +set com_homepath server.iortcw +set com_hunkmegs ${SV_HUNKMEGS} +set net_port ${SV_NETPORT} +set sv_punkbuster ${SV_PUNKBUSTER} +exec ${SV_SERVERCONFIGFILE}"
