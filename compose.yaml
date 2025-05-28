@@ -1,6 +1,6 @@
 services:
   rtcw-server:
-    image: ghcr.io/ekrunch/iortcw-server-docker:main
+    image: ghcr.io/ekrunch/iortcw-server-docker:latest
     container_name: rtcw-server
     restart: unless-stopped
     environment:
