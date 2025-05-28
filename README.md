@@ -101,9 +101,9 @@ The container is currently being built for amd64 and arm64. Those are the platfo
 
 More information on the packages used.
 
-[rtcw-server](https://packages.debian.org/trixie/rtcw-server)
-[game-data-packager](https://packages.debian.org/trixie/game-data-packager)
-[innoextract](https://packages.debian.org/trixie/innoextract)
+- [rtcw-server](https://packages.debian.org/trixie/rtcw-server)
+- [game-data-packager](https://packages.debian.org/trixie/game-data-packager)
+- [innoextract](https://packages.debian.org/trixie/innoextract)
 
 ## Podman Support
 
