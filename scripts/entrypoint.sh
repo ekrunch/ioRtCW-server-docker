@@ -2,6 +2,10 @@
 
 set -e
 
+kill_iortcw_server() {
+  kill `cat /var/cache/rtcw-server/home/server.iortcw/main/iowolfmp_server.pid`
+}
+
 echo Setting permissions on home and gamefiles directories
 mkdir -p /var/cache/rtcw-server/home/server.iortcw/main
 chown -Rv ${PUID}:${PGID} /var/cache/rtcw-server/home/
@@ -21,7 +25,11 @@ fi
 
 RUNCMD="/usr/lib/rtcw/iowolfded +set com_homepath server.iortcw +set com_hunkmegs ${SV_HUNKMEGS} +set net_port ${SV_NETPORT} +set sv_punkbuster ${SV_PUNKBUSTER} +exec ${SV_SERVERCONFIGFILE}"
 
+trap 'kill_iortcw_server' SIGTERM
+
 echo Launching server. Command line :
 echo "${RUNCMD}"
 
-su -l iortcw -c "cd && ${RUNCMD}"
+su -l iortcw -c "cd && ${RUNCMD}" &
+
+wait $!
